@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BioDAO — Own Your Biology, Earn Your Health</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+  body {
+    margin: 0; 
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: #e0f7fa;
+    display: flex; 
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  header {
+    padding: 2rem;
+    text-align: center;
+  }
+  header h1 {
+    font-size: 3rem;
+    margin-bottom: 0.2rem;
+  }
+  header p {
+    font-size: 1.25rem;
+    font-weight: 400;
+    opacity: 0.8;
+  }
+  main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  button {
+    cursor: pointer;
+    background-color: #00bcd4;
+    border: none;
+    padding: 1rem 2rem;
+    font-weight: 700;
+    font-size: 1.2rem;
+    border-radius: 9999px;
+    color: #004d40;
+    margin-top: 1rem;
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #00838f;
+    color: #b2dfdb;
+  }
+  #status {
+    margin-top: 1rem;
+    font-style: italic;
+    min-height: 1.5rem;
+  }
+  section {
+    margin-top: 3rem;
+    background: rgba(255 255 255 / 0.1);
+    padding: 1.5rem;
+    border-radius: 12px;
+  }
+  section h2 {
+    margin-top: 0;
+    font-weight: 700;
+    font-size: 1.8rem;
+  }
+  section ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  section ul li {
+    margin-bottom: 0.7rem;
+    line-height: 1.4;
+  }
+  footer {
+    padding: 1rem;
+    text-align: center;
+    font-size: 0.85rem;
+    opacity: 0.6;
+  }
+  a {
+    color: #00bcd4;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>BioDAO</h1>
+  <p>Own Your Biology. Earn Your Health.</p>
+</header>
+<main>
+  <p>Connect your wallet and mint your <strong>BioCitizen NFT</strong> to join the decentralized health revolution.</p>
+  <button id="connectBtn">Connect Wallet</button>
+  <button id="mintBtn" disabled>Mint BioCitizen NFT (Free)</button>
+  <div id="status"></div>
+
+  <section>
+    <h2>Roadmap</h2>
+    <ul>
+      <li>Phase 1: Launch DAO & mint BioCitizen NFTs</li>
+      <li>Phase 2: Enable anonymous data sharing & token rewards</li>
+      <li>Phase 3: Fund innovative health & longevity research</li>
+      <li>Phase 4: Grow community & global impact</li>
+    </ul>
+  </section>
+</main>
+<footer>
+  Made with ❤️ for the future of health and Web3.
+</footer>
+
+<script>
+  let userAddress = null;
+  const connectBtn = document.getElementById('connectBtn');
+  const mintBtn = document.getElementById('mintBtn');
+  const status = document.getElementById('status');
+
+  async function connectWallet() {
+    if (!window.ethereum) {
+      status.textContent = 'MetaMask or other Ethereum wallet not detected.';
+      return;
+    }
+    try {
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      userAddress = accounts[0];
+      status.textContent = `Connected: ${userAddress.slice(0,6)}...${userAddress.slice(-4)}`;
+      connectBtn.disabled = true;
+      mintBtn.disabled = false;
+    } catch (err) {
+      status.textContent = 'Connection rejected.';
+    }
+  }
+
+  // Dummy mint function: replace with real contract interaction
+  async function mintNFT() {
+    if (!userAddress) {
+      status.textContent = 'Connect wallet first.';
+      return;
+    }
+    mintBtn.disabled = true;
+    status.textContent = 'Minting BioCitizen NFT...';
+
+    // Simulate mint delay
+    setTimeout(() => {
+      status.textContent = '🎉 NFT minted! Welcome to BioDAO.';
+      mintBtn.disabled = true;
+    }, 2000);
+  }
+
+  connectBtn.onclick = connectWallet;
+  mintBtn.onclick = mintNFT;
+</script>
+</body>
+</html>
